@@ -1,11 +1,16 @@
 import React from "react";
-import "./App.css";
+import "./index.css";
+import MainPage from "./components/mainPage";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 class App extends React.Component {
   render() {
     return (
       <div>
-        <h1>Test</h1>
+        <Navbar />
+        <MainPage />
+        <Footer />
       </div>
     );
   }
