@@ -36,3 +36,11 @@ svg {
   text-align: center;
   background-color: lightslategray;
 }
+.card {
+  width: 18rem;
+}
+.btn {
+  border: 1px solid salmon;
+  border-radius: 0.3rem;
+  background-color: salmon;
+}
