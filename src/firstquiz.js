@@ -1,4 +1,7 @@
 import React from "react"; 
+import AnswerKomboOne from "./AnswerKomboOne.js"
+import AnswerKomboTwo from "./AnswerKomboTwo.js"
+import AnswerKomboThree from "./AnswerKomboThree.js"
 
 import { db } from './firebase'
 
@@ -16,7 +19,8 @@ state =  {
     Questionnumber: [0],
     Answernumberone: [0],
     Answernumbertwo: [1],
-    Answernumberthree: [2]
+    Answernumberthree: [2],
+    Randomnumber: ""
     
 }
 
@@ -51,9 +55,19 @@ componentDidMount = () => {
 
 }
 
+getRandom = () => {
+
+    let ran = Math.floor(Math.random()*4)
+
+    this.setState({Randomnumber: ran})
+    console.log(this.state.Randomnumber)
+}
+
 nextQuestion = (e) => {
 
     e.preventDefault()
+
+    this.getRandom()
 
     this.setState({loaded: false})
 
@@ -85,15 +99,25 @@ render () {
 
 
 
-        return (<div className="container">
+        return (<form onSubmit={this.nextQuestion} className="container">
 
                     <h2>THIS IS THE FIRST QUIZ</h2>
 
                     
 
-                    {this.state.loaded?                     
+                    {this.state.loaded && this.state.Randomnumber===0?                     
                                
+                               <AnswerKomboOne submit={this.nextQuestion} Questions={this.state.Questions} Questionnumber={this.state.Questionnumber} Wronganswers={this.state.Wronganswers} Rightanswers={this.state.Rightanswers} Answerone={this.state.Answernumberone} Answertwo={this.state.Answernumbertwo} Answerthree={this.state.Answernumberthree}/>:null}
+
+                               {this.state.loaded && this.state.Randomnumber===1?                     
                                
+                               <AnswerKomboTwo submit={this.nextQuestion} Questions={this.state.Questions} Questionnumber={this.state.Questionnumber} Wronganswers={this.state.Wronganswers} Rightanswers={this.state.Rightanswers} Answerone={this.state.Answernumberone} Answertwo={this.state.Answernumbertwo} Answerthree={this.state.Answernumberthree}/>:null}
+
+                               {this.state.loaded && this.state.Randomnumber===2?                     
+                               
+                               <AnswerKomboThree submit={this.nextQuestion} Questions={this.state.Questions} Questionnumber={this.state.Questionnumber} Wronganswers={this.state.Wronganswers} Rightanswers={this.state.Rightanswers} Answerone={this.state.Answernumberone} Answertwo={this.state.Answernumbertwo} Answerthree={this.state.Answernumberthree}/>:null}
+
+                    {this.state.loaded && this.state.Randomnumber===3?          
                          <form className="quizform" onSubmit={this.nextQuestion}>
                             <h2>{this.state.Questions[this.state.Questionnumber]}</h2>
                                 
@@ -118,10 +142,11 @@ render () {
                                     {this.state.Rightanswers[this.state.Questionnumber]}
                                     </label> :null} 
                                 <div>
-                                     <button className="btn" type="Submit" >TAKE QUESTION</button>
+                                     
                                 </div>
                         </form>:null}
-                </div>)}
+                        <button className="btn" type="Submit" >TAKE QUESTION</button>
+                </form>)}
                 
         }
 

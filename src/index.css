@@ -30,7 +30,7 @@ svg {
   height: 3em;
 }
 
-.quizform {display: flex;
+.quizform, .container {display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;}
