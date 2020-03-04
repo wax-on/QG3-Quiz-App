@@ -40,3 +40,9 @@ svg {
   text-align: center;
   background-color: lightslategray;
 }
+.row {
+  text-align: center;
+}
+.row :last-child {
+  margin-bottom: 3rem;
+}
