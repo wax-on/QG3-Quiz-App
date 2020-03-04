@@ -26,10 +26,6 @@ code {
 }
 svg {
   color: aliceblue;
-  display: block;
-  margin: auto;
-  text-align: center;
-  padding: top 3rem;
   width: 3em;
   height: 3em;
 }
@@ -39,10 +35,4 @@ svg {
   padding-bottom: 1.5rem;
   text-align: center;
   background-color: lightslategray;
-}
-.row {
-  text-align: center;
-}
-.row :last-child {
-  margin-bottom: 3rem;
 }
