@@ -11,6 +11,40 @@ class QuizCreator extends React.Component {
 		quiz: [],
 	}
 
+	createQuizQuestion = () => {
+		const newQuestion = {
+			id: 1,
+			question: this.state.question,
+			answers: [
+				{
+					answer1: this.state.answer1,
+					correct: false
+				},
+				{
+					answer2: this.state.answer2,
+					correct: false,
+				},
+				{
+					answer3: this.state.answer3,
+					correct: true,
+				},
+				{
+					answer4: this.state.answer4,
+					correct: true,
+				}
+			]
+		}
+
+		const quizList = [...this.state.quiz, newQuestion]
+		console.log(quizList)
+
+		this.setState({
+			quiz: quizList
+		})
+
+		console.log(this.state.quiz)
+	}
+
 	handleChange = (e) => {
 		this.setState({
 			[e.target.name]: e.target.value,
@@ -24,9 +58,11 @@ class QuizCreator extends React.Component {
 
 	render() {
 		return (
-			<div className="container mb-4">
-				<form onSubmit={this.handleSubmit}>
-					<h1>Create a Quiz</h1>
+			<div className="quizcreator-container container mb-4">
+				<h1>Create a Quiz</h1>
+
+				<div className="quizcreator-form">
+					<form onSubmit={this.handleSubmit}>
 						<div className="form-group mb-3">
 							<label>Add a question:</label>
 								<input 
@@ -97,6 +133,7 @@ class QuizCreator extends React.Component {
 						<button className="btn btn-secondary">Submit your question</button>
 				</form>
 			</div>
+		</div>
 		)
 	}
 

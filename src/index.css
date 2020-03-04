@@ -40,3 +40,25 @@ svg {
   text-align: center;
   background-color: lightslategray;
 }
+
+/* Styling for Quiz Creator */
+.quizcreator-container {
+  margin: 1.5rem;
+}
+
+.quizcreator-container h1 {
+  margin-bottom: 1.5rem;
+}
+
+.quizcreator-form {
+  background-color: salmon;
+  color: white;
+  padding: 1.5rem 3rem;
+  margin-bottom: 3rem;
+}
+
+
+.quizcreator-form button {
+  background-color: lightslategray;
+
+}
