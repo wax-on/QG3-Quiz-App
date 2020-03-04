@@ -3,6 +3,7 @@ import "./index.css";
 import MainPage from "./components/mainPage";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import Firstquiz from "./firstquiz.js"
 
 class App extends React.Component {
   render() {
@@ -10,6 +11,7 @@ class App extends React.Component {
       <div>
         <Navbar />
         <MainPage />
+        <Firstquiz />
         <Footer />
       </div>
     );

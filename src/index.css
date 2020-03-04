@@ -30,6 +30,11 @@ svg {
   height: 3em;
 }
 
+.quizform {display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;}
+
 .footer-copyright {
   padding-top: 2rem;
   padding-bottom: 1.5rem;
