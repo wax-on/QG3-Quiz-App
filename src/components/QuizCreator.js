@@ -1,48 +1,85 @@
 import React from 'react'
+import { db } from '../firebase'
+import AddQuizQuestion from './AddQuizQuestion'
+import AddQuizAnswer from './AddQuizAnswer'
 
 class QuizCreator extends React.Component {
 
 	state = {
-		question: '',
-		answer1: '',
-		answer2: '',
-		answer3: '',
-		answer4: '',
+		titleInput: '',
+		title: null,
 		quiz: [],
-	}
+		answerInputs: '',
+		question: '',
+		answers: [],
+		quizId: '',
+		}
+	
 
 	createQuizQuestion = () => {
 		const newQuestion = {
-			id: 1,
 			question: this.state.question,
 			answers: [
 				{
-					answer1: this.state.answer1,
-					correct: false
-				},
-				{
-					answer2: this.state.answer2,
+					text: this.state.answer,
 					correct: false,
 				},
-				{
-					answer3: this.state.answer3,
-					correct: true,
-				},
-				{
-					answer4: this.state.answer4,
-					correct: true,
-				}
-			]
+			],
 		}
 
 		const quizList = [...this.state.quiz, newQuestion]
-		console.log(quizList)
-
 		this.setState({
-			quiz: quizList
+			title: this.state.title,
+			quiz: quizList,
 		})
 
-		console.log(this.state.quiz)
+		this.emptyInputValue()
+	}
+
+	// addAnswer = () => {
+	// 	this.setState({
+	// 		answerInputs: <input 
+	// 						type="text" 
+	// 						name="answer1"
+	// 						className="form-control mb-3" 
+	// 						placeholder="Enter an answer" 
+	// 						aria-label="Answer input"
+	// 						value={this.state.answer1}
+	// 						onChange={this.handleChange}
+	// 			/>
+	// 	})
+	// }	
+
+	// emptyInputValue = () => {
+	// 	this.setState({
+	// 		question: '',
+	// 		answer: '',
+	// 	})
+	// }
+
+	createQuizFirebase = (dbTitle) => {
+		if (dbTitle) {
+			db.collection("QG3-Quiz").add({
+				title: dbTitle,
+				// questions: [{
+				// 	answers: [{
+				// 		text: '',
+				// 		correct: false,
+				// 	}],
+				// 	question: '',
+				// }],
+			})
+			.then(docRef => {
+				// this.setState({
+				// 	quizId: docRef.id,
+				// })
+				console.log("Document written with ID: ", docRef.id);
+				this.props.history.push('/create-quiz-question/' + docRef.id);
+			})
+			.catch(function(error) {
+				console.error(error);
+			});
+		}
 	}
 
 	handleChange = (e) => {
@@ -51,9 +88,21 @@ class QuizCreator extends React.Component {
 		})
 	}
 
-	handleSubmit = (e) => {
+	handleSubmitTitle = (e) => {
 		e.preventDefault()
-		this.createQuizQuestion()
+
+		const dbTitle = this.state.titleInput
+
+		this.setState({
+			title: this.state.titleInput,
+			titleInput: '',
+		})
+
+		this.createQuizFirebase(dbTitle)
+	}
+
+	handleSubmitQA = (e) => {
+		e.preventDefault()
 	}
 
 	render() {
@@ -62,76 +111,56 @@ class QuizCreator extends React.Component {
 				<h1>Create a Quiz</h1>
 
 				<div className="quizcreator-form">
-					<form onSubmit={this.handleSubmit}>
-						<div className="form-group mb-3">
-							<label>Add a question:</label>
-								<input 
-									type="text" 
-									name="question"
-									className="form-control" 
-									placeholder="Enter a question" 
-									aria-label="Question input"
-									value={this.state.question}
-									onChange={this.handleChange} 
-								/>
+				{
+					!this.state.title ?
+
+					(
+						<form onSubmit={this.handleSubmitTitle}>
+							<div className="form-group mb-3">
+								<label>Name your quiz:</label>
+									<input 
+										type="text" 
+										name="titleInput"
+										className="form-control" 
+										placeholder="Enter a title" 
+										aria-label="Quiztitle input"
+										value={this.state.titleInput}
+										onChange={this.handleChange} 
+									/>
+								<button className="btn btn-secondary mt-3">Create your quiz</button>
 							</div>
+						</form>
+					)
 
-						<div className="form-group mb-3">
-							<label>Add your answers:</label>
-								<input 
-									type="text" 
-									name="answer1"
-									className="form-control mb-3" 
-									placeholder="Enter an answer" 
-									aria-label="Answer input"
-									value={this.state.answer1}
-									onChange={this.handleChange}
-								/>
+					:
 
-								<input 
-									type="text" 
-									name="answer2"
-									className="form-control mb-3" 
-									placeholder="Enter an answer" 
-									aria-label="Answer input" 
-									value={this.state.answer2}
-									onChange={this.handleChange}
-									/>
+					(
+						<form onSubmit={this.handleSubmitQA}>
+							<div>
+								<div className="form-group mb-3">
+									<label>Add a question:</label>
+										<AddQuizQuestion 
+											question={this.state.question} 
+											id={this.state.quizId} 
+											handleChange={this.handleChange} />
+									</div>
 
-								<input 
-									type="text" 
-									name="answer3"
-									className="form-control mb-3" 
-									placeholder="Enter an answer" 
-									aria-label="Answer input" 
-									value={this.state.answer3}
-									onChange={this.handleChange}
-									/>
+								<div className="form-group mb-3">
+									<label>Add your answers:</label>
+										<AddQuizAnswer 
+											answer={this.state.answer} 
+											id={this.state.quizId} 
+											handleChange={this.handleChange} />
+										
+									{/* {this.state.answerInputs ? this.state.answerInputs : ''} */}
+								</div>
 
-								<input 
-									type="text" 
-									name="answer3"
-									className="form-control mb-3" 
-									placeholder="Enter an answer" 
-									aria-label="Answer input" 
-									value={this.state.answer4}
-									onChange={this.handleChange}
-									/>
-						</div>
-
-						<label>Select correct answer:</label>
-							<div className="form-group">
-								<select className="custom-select">
-									<option selected value="">Select correct answer</option>
-									<option value="1">Answer 1</option>
-									<option value="2">Answer 2</option>
-									<option value="3">Answer 3</option>
-									<option value="4">Answer 4</option>
-								</select>
+								<button className="btn btn-secondary">Submit your question</button>
 							</div>
+						</form>
+					)
+				}
 
-						<button className="btn btn-secondary">Submit your question</button>
-				</form>
 			</div>
 		</div>
 		)
