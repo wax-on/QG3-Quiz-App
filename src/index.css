@@ -42,6 +42,14 @@ svg {
   background-color: lightslategray;
 }
 
+.answerform, .question, .next {display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  }
+
+.answerform input, .answerform label {padding-left:1rem;}
+
 .ruta {
   margin-top: 1rem;
   margin-bottom: 1rem;

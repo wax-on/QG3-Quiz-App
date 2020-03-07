@@ -1,0 +1,27 @@
+import React from "react"; 
+
+
+class Answer extends React.Component {
+
+state = {
+
+}
+
+
+
+render () {
+    
+    return (<label>
+             <input type="radio" name="answers" value={this.props.text}/>
+             {this.props.text}
+            </label>
+            )}
+
+}
+
+
+
+
+
+
+export default Answer
