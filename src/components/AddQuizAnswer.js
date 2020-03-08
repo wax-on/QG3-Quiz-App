@@ -2,43 +2,60 @@ import React from 'react'
 
 class AddQuizAnswer extends React.Component {
 
-	state = {
-		answers: [],
+	handleAddInputClick = e => {
+		e.preventDefault()
+		const answers = this.props.answers
+		answers.push("")
+
+		this.setState({
+			answers,
+		})
 	}
 
-	// addAnswerInput = () => {
-	// 	let counter = 1
-	// 	let limit = 5
+	handleInputChange = (e, i) => {
+		const answers = this.props.answers
+		answers[i] = e.target.value
 
-	// 	function addInput(divName) {
-	// 		if (counter === limit) {
-	// 			alert ('Stop!')
-	// 		} else {
-	// 			let newDiv = document.createElement('div');
-	// 			newDiv.innerHTML
-	// 		}
-	// 	}
-	// }
-
+		this.setState({
+			answers,
+		})
+	}
 
 	render() {
 		return (
-
-			// this.state.answers.map((answer, i) => )
 			<div>
-				<div id="answer-inputs" class="form-row">
-					<div class="form-group col-md-10">
-						<input type="text" name="answer" className="form-control" placeholder="Enter an answer" value={this.props.answer} onChange={this.props.handleChange} />
+			{
+				this.props.answers.map((answer, i) => (
+					<div id="answer-inputs" className="form-row" key={i}>
+						<div className="form-group w-100">
+							<input 
+								type="text" 
+								name="answer" 
+								className="form-control" 
+								placeholder="Enter an answer" 
+								value={answer} 
+								onChange={e => {this.handleInputChange(e, i)}} />
+						</div>
 					</div>
-		
-					<div class="form-group col-md-2">
-						<select id="correct" className="form-control">
-							<option value="false" selected>false</option>
-							<option value="true">true</option>
-						</select>
-					</div>
-				</div>
-			<button className="btn btn-secondary" onClick={this.addAnswerInput}>+</button>
+				))
+			}
+
+			<button className="btn btn-secondary" onClick={this.handleAddInputClick}>+</button>
+
+			<div className="form-group">
+				<p>Please select the correct answer:</p>
+					<select 
+						name="correctAnswer" 
+						className="form-control" 
+						value={this.props.correctAnswer} 
+						onChange={this.props.handleChange}>
+							{
+								this.props.answers.map((answer, i) => (
+									<option value={answer}>{answer}</option>
+								))
+							}
+				</select>
+			</div>
 		</div>
 		)
 	}
