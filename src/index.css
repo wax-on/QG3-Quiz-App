@@ -54,3 +54,12 @@ svg {
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
+
+.result, .startbtn {display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-style: bold;
+  font-size: 1.5em;
+  color: salmon;
+  }

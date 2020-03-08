@@ -9,11 +9,15 @@ class Firstquiz extends React.Component {
 state =  {
 
     loaded: false,
+    start:true,
     ids:[],
     Quiztitle:"",
     Questions: [],
     Answers: [],
     data:[],
+    finnished: false,
+    answerpoint:"",
+    points:0,
     index: -1
     
 }
@@ -29,7 +33,7 @@ componentDidMount = () => {
        
     if (doc.exists) {dat.push(doc.data())}}).catch(err=>console.log(err))
 
-    this.setState({data: dat, loaded:true})
+    this.setState({data: dat, loaded:true, start:false})
     this.updatastate()}
 
 
@@ -42,7 +46,7 @@ updatastate = () => {
 
     const end = dat.filter(dat=>dat.questions.length==i)
 
-    if (end.length) {alert("GAME OVER"); this.setState({loaded:false});return}
+    if (end.length) {this.setState({loaded:false, finnished:true});return}
 
     const ques = dat.map(dat=>dat.questions[i].question)
 
@@ -50,13 +54,26 @@ updatastate = () => {
 
     const ans = dat.map(dat=>dat.questions[i].answers)
 
-    this.setState({Answers: ans.map(answers=>answers.map(ans=><Answer text={ans.text}/>))})
+    this.setState({Answers: ans.map(answers=>answers.map(ans=><Answer lagra={this.lagrasvar} text={ans.text} correct={ans.correct}/>))})
 
     const tit = dat.map(dat=>dat.title)
 
     this.setState({Quiztitle: tit, index: i+1})
 
    }
+
+lagrasvar = (e) => {
+
+    this.setState({answerpoint: e.target.value})
+}
+
+rattasvar = (e) => {
+
+    e.preventDefault()
+
+   if(this.state.answerpoint=="true"){this.setState({points: this.state.points + 1})}
+   this.updatastate()
+}
 
 render () {
 
@@ -65,20 +82,26 @@ render () {
                 
                     <div>
                         <h2>WELCOME TO THE QUIZ</h2>
-                        <h3>QUIZ NAME: {this.state.Quiztitle}</h3>
 
-                        {this.state.loaded? 
+                        {this.state.Questions.length && !this.state.finnished? 
                         <div>
+                             <h3>QUIZ NAME: {this.state.Quiztitle}</h3>
                             <div className="question" >{this.state.Questions}</div>
-                             <form className="answerform">
+
+                             <form onSubmit={this.rattasvar} className="answerform">
                                 {this.state.Answers}
+                                <button type="submit">SEND ANSWER</button>
+
                              </form>   
                         </div>:null}
                     </div>
                
+               {!this.state.Questions.length?
                     <div className="next">
-                        <button className="btn" type="click" onClick={this.updatastate} >TAKE QUESTION</button>
-                    </div>
+                        <button className="startbtn" type="click" onClick={this.updatastate} >START QUIZ</button>
+                    </div>:null}
+
+                 {this.state.finnished?<p className="result">YOU GOT {this.state.points} POINTS</p>:null}
                 </div>)}
                 
         }
