@@ -1,6 +1,7 @@
 import React from 'react'
 import AddQuizAnswer from "./AddQuizAnswer"
 import { db } from '../firebase'
+import { Link } from 'react-router-dom'
 
 class AddQuizQuestion extends React.Component {
 
@@ -15,7 +16,6 @@ class AddQuizQuestion extends React.Component {
 	componentDidMount() {
 		db.collection("QG3-Quiz").doc(this.props.match.params.quiz_id).get()
 		.then(doc => {
-			console.log('response', doc.data())
 			this.setState({
 				title: doc.data().title,
 			})
@@ -39,6 +39,14 @@ class AddQuizQuestion extends React.Component {
 		})
 
 		this.emptyInputValue()
+	}
+
+	deleteQuestion = (e, i) => {
+		const questions = this.state.questions;
+		questions.splice(i, 1);
+		this.setState({
+			questions
+		});
 	}
 
 	emptyInputValue = () => {
@@ -79,7 +87,8 @@ class AddQuizQuestion extends React.Component {
 		const quizOutput = this.state.questions.map((question, i) => {
 			return (
 				<div>
-					<h2> {i + 1}. {question.question} </h2>
+					<h2> {i + 1}. {question.question}  
+					<span className="delete-question" onClick={(e) => {this.deleteQuestion(e, i)}}> 🗑</span></h2>
 					<ol>
 						{
 							question.answers.map(answer => {
@@ -97,7 +106,7 @@ class AddQuizQuestion extends React.Component {
 		})
 
 		return (
-			<div>
+			<div className="quizcreator-content">
 				<div className="quizcreator-container container mb-4">
 					<h1>Create a Quiz</h1>
 						<form onSubmit={this.handleSubmit}>
@@ -133,18 +142,27 @@ class AddQuizQuestion extends React.Component {
 							</form>
 					</div>
 
-					<div className="create-quiz-output">
-						<h1>{this.state.title}</h1>
-							<div className="created-question-output">
-								{quizOutput}
-							</div>
-						<button 
-							onClick={this.submitQuiz} 
-							className="btn btn-secondary" 
-							disabled={this.state.questions.length > 0 ? "" : "disabled"}>
-								Submit your finished quiz
-							</button>
-					</div>
+					{
+						this.state.questions.length > 0 
+						?
+						(<div className="create-quiz-output">
+							<h1>{this.state.title}</h1>
+								<div className="created-question-output">
+									{quizOutput}
+								</div>
+
+								<button 
+									onClick={this.submitQuiz} 
+									className="btn btn-secondary" 
+									disabled={this.state.questions.length > 0 ? "" : "disabled"}>
+										<Link to="/">
+											Submit your finished quiz
+										</Link>
+									</button>
+						</div>)
+						:
+						''
+					}
 			</div>
 		)
 	}
