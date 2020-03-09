@@ -9,6 +9,16 @@ class navbar extends React.Component {
         <a className="navbar-brand rounded mx-auto d-block" href="/">
           <Icon icon={bxGame} />
         </a>
+        <span className="pr-3">
+          <a href="/" className="list-style-none text-dark">
+            Create Quiz
+          </a>
+        </span>
+        <span className="pr-3">
+          <a href="/" className="list-style-none text-dark">
+            Quizes
+          </a>
+        </span>
       </nav>
     );
   }
