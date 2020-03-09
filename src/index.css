@@ -58,6 +58,39 @@ svg {
   background-color: lightslategray;
 
 }
+
+.create-quiz-output {
+  margin: 2rem;
+  padding: 1.5rem;
+  text-align: center;
+  border: 1px solid lightslategray;
+}
+
+.create-quiz-output button {
+  background-color: lightslategray;
+  margin-bottom: 1.5rem;
+}
+
+.create-quiz-output h1 {
+  margin-bottom: 2rem;
+  text-decoration: underline;
+  text-transform: capitalize;
+}
+
+.create-quiz-output h2 {
+  font-size: 1.5rem;
+}
+
+.created-question-output {
+  margin-bottom: 2rem;
+}
+
+span.correct {
+  font-style: italic;
+  font-weight: bold;
+  color: salmon;
+}
+
 .ruta {
   margin-top: 1rem;
   margin-bottom: 1rem;
