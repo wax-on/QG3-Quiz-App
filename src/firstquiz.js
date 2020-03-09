@@ -30,7 +30,7 @@ componentDidMount = () => {
 
    const dat = [...this.state.data]
 
-   db.collection("QG3-Quiz").doc("h2CvGlfBexyp65u0R46r").get().then(function(doc) {
+   db.collection("QG3-Quiz").doc(this.props.match.params.quiz_id).get().then(function(doc) {
        
     if (doc.exists) {dat.push(doc.data())}}).catch(err=>console.log(err))
 

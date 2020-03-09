@@ -1,6 +1,6 @@
 import React from "react";
 import { db } from "../firebase";
-import Firstquiz from "./firstquiz.js";
+import Firstquiz from "../firstquiz"
 
 class mainPage extends React.Component {
   state = {
