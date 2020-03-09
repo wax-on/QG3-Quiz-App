@@ -13,8 +13,8 @@ class App extends React.Component {
           <Navbar />
           <Switch>
             <Route exact path="/" component={MainPage} />
-            <Route path="/create-quiz" component={QuizCreator} />
-            <Route path="/create-quiz-question" component={AddQuizQuestion} />
+            {/* <Route path="/create-quiz" component={QuizCreator} />
+            <Route path="/create-quiz-question" component={AddQuizQuestion} /> */}
           </Switch>
 
           <Footer />
