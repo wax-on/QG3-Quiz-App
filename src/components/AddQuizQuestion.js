@@ -123,7 +123,12 @@ class AddQuizQuestion extends React.Component {
 													handleChange={this.handleChange} />
 										</div>
 
-										<button type="submit" className="btn btn-secondary">Submit your question</button>
+										<button 
+											type="submit" 
+											className="btn btn-secondary" 
+											disabled={!this.state.correctAnswer ? "disabled" : ""}>
+												Submit your question
+											</button>
 									</div>
 							</form>
 					</div>
@@ -133,7 +138,12 @@ class AddQuizQuestion extends React.Component {
 							<div className="created-question-output">
 								{quizOutput}
 							</div>
-						<button onClick={this.submitQuiz} className="btn btn-secondary">Submit your finished quiz</button>
+						<button 
+							onClick={this.submitQuiz} 
+							className="btn btn-secondary" 
+							disabled={this.state.questions.length > 0 ? "" : "disabled"}>
+								Submit your finished quiz
+							</button>
 					</div>
 			</div>
 		)

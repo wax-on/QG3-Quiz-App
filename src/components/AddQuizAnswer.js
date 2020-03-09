@@ -2,6 +2,10 @@ import React from 'react'
 
 class AddQuizAnswer extends React.Component {
 
+	state = {
+		defaultSelect: '',
+	}
+
 	deleteAnswer = (e, i) => {
 		e.preventDefault()
 		const answers = this.props.answers;
@@ -59,8 +63,9 @@ class AddQuizAnswer extends React.Component {
 					<select 
 						name="correctAnswer" 
 						className="form-control" 
-						value={this.props.correctAnswer} 
+						value={this.props.correctAnswer}
 						onChange={this.props.handleChange}>
+							<option disabled="disabled" value="">Choose correct answer</option>
 							{
 								this.props.answers.map((answer, i) => (
 									<option value={answer}>{answer}</option>
