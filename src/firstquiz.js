@@ -14,6 +14,7 @@ state =  {
     Quiztitle:"",
     Questions: [],
     Answers: [],
+    Correctans:"",
     data:[],
     finnished: false,
     answerpoint:"",
@@ -29,7 +30,7 @@ componentDidMount = () => {
 
    const dat = [...this.state.data]
 
-   db.collection("QG3-Quiz").doc("Quiz 1").get().then(function(doc) {
+   db.collection("QG3-Quiz").doc("h2CvGlfBexyp65u0R46r").get().then(function(doc) {
        
     if (doc.exists) {dat.push(doc.data())}}).catch(err=>console.log(err))
 
@@ -54,7 +55,11 @@ updatastate = () => {
 
     const ans = dat.map(dat=>dat.questions[i].answers)
 
-    this.setState({Answers: ans.map(answers=>answers.map(ans=><Answer lagra={this.lagrasvar} text={ans.text} correct={ans.correct}/>))})
+    this.setState({Answers: ans.map(answer=>answer.map(ans=><Answer lagra={this.lagrasvar} text={ans} value={false}/>))})
+
+    const correct = dat.map(dat=>dat.questions[i].correctAnswer)
+
+    this.setState({Correctans: <Answer lagra={this.lagrasvar} text={correct} value={true}/>})
 
     const tit = dat.map(dat=>dat.title)
 
@@ -90,6 +95,7 @@ render () {
 
                              <form onSubmit={this.rattasvar} className="answerform">
                                 {this.state.Answers}
+                                {this.state.Correctans}
                                 <button type="submit">SEND ANSWER</button>
 
                              </form>   
