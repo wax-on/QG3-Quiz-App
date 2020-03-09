@@ -1,6 +1,7 @@
 import React from "react";
 import { Icon } from "@iconify/react";
 import bxGame from "@iconify/icons-bx/bx-game";
+import { NavLink } from 'react-router-dom'
 
 class navbar extends React.Component {
   render() {
@@ -10,9 +11,7 @@ class navbar extends React.Component {
           <Icon icon={bxGame} />
         </a>
         <span className="pr-3">
-          <a href="/" className="list-style-none text-dark">
-            Create Quiz
-          </a>
+          <NavLink to="/create-quiz" className="list-style-none text-dark">Create Quiz</NavLink>
         </span>
         <span className="pr-3">
           <a href="/" className="list-style-none text-dark">
