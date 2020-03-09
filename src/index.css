@@ -30,13 +30,36 @@ svg {
   height: 3em;
 }
 
+.quizform, .container {display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;}
+
 .footer-copyright {
   padding-top: 2rem;
   padding-bottom: 1.5rem;
   text-align: center;
   background-color: lightslategray;
 }
+
+.answerform, .question, .next {display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  }
+
+.answerform input, .answerform label {padding-left:1rem;}
+
 .ruta {
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
+
+.result, .startbtn {display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-style: bold;
+  font-size: 1.5em;
+  color: salmon;
+  }

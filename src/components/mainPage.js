@@ -1,5 +1,6 @@
 import React from "react";
 import { db } from "../firebase";
+import Firstquiz from "../firstquiz"
 
 class mainPage extends React.Component {
   state = {
@@ -33,17 +34,22 @@ class mainPage extends React.Component {
     this.setState({ Quizes: tommaquiz });
   };
 
+  getQuiz = id => {
+    this.props.history.push("./Quizrender/" + id);
+  };
+
   render() {
     const NewQuizes = this.state.Quizes.map(obj => {
       console.log(obj);
+      const i = obj.realid;
       return (
         <div className="text-center card ruta col-sm-12 col-md-4 col-lg-3 mx-auto">
           <div className="text-center card-body">
             <p className="text-center card-text text-center">{obj.realtitle}</p>
             <button
               className="btn btn-info"
-              onClick={e => {
-                this.getQuiz(e, obj.realid);
+              onClick={() => {
+                this.getQuiz(i);
               }}
             >
               Take Quiz
