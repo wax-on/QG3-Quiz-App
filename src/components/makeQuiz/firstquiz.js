@@ -14,7 +14,7 @@ state =  {
     Quiztitle:"",
     Questions: [],
     Answers: [],
-    Correctans:"",
+    correctAnswer: [],
     data:[],
     finnished: false,
     answerpoint:"",
