@@ -1,6 +1,5 @@
 import React from "react";
-import { db } from "../firebase";
-
+import { db } from "../fireStore/firebase";
 
 class mainPage extends React.Component {
   state = {
@@ -60,7 +59,7 @@ class mainPage extends React.Component {
     return (
       <div>
         <div className="container my-5">
-          <h1 className="mb-5">Name</h1>
+          <h1 className="mb-5">Quizes</h1>
           <div className="container">
             <div className="row">{NewQuizes}</div>
           </div>
