@@ -17,6 +17,7 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/" component={MainPage} />
             <Route path="/create-quiz" component={QuizCreator} />
+
             <Route
               path="/create-quiz-question/:quiz_id"
               component={AddQuizQuestion}
