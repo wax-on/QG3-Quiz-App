@@ -40,6 +40,7 @@ componentDidMount = () => {
 
 updatastate = () => {
 
+    let randomanswers=[];
 
     let dat = [...this.state.data]
 
@@ -55,11 +56,17 @@ updatastate = () => {
 
     const ans = dat.map(dat=>dat.questions[i].answers)
 
-    this.setState({Answers: ans.map(answer=>answer.map(ans=><Answer lagra={this.lagrasvar} text={ans} value={false}/>))})
+    let correct = dat.map(dat=>dat.questions[i].correctAnswer)
 
-    const correct = dat.map(dat=>dat.questions[i].correctAnswer)
+    const answers= ans.map(an=>an.map(item=>item!=correct?<Answer lagra={this.lagrasvar} text={item} value={false}/>:null))
+    
 
-    this.setState({Correctans: <Answer lagra={this.lagrasvar} text={correct} value={true}/>})
+    let realcorrect=[]
+
+    realcorrect =correct.map(ans=><Answer lagra={this.lagrasvar} text={ans} value={true}/>
+    )
+    this.setState({Answers: answers, correctAnswer: realcorrect})
+
 
     const tit = dat.map(dat=>dat.title)
 
@@ -77,6 +84,7 @@ rattasvar = (e) => {
     e.preventDefault()
 
    if(this.state.answerpoint=="true"){this.setState({points: this.state.points + 1})}
+
    this.updatastate()
 }
 
@@ -95,7 +103,7 @@ render () {
 
                              <form onSubmit={this.rattasvar} className="answerform">
                                 {this.state.Answers}
-                                {this.state.Correctans}
+                                {this.state.correctAnswer}
                                 <button type="submit">SEND ANSWER</button>
 
                              </form>   
