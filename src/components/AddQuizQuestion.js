@@ -106,8 +106,8 @@ class AddQuizQuestion extends React.Component {
 		})
 
 		return (
-			<div className="quizcreator-content">
-				<div className="quizcreator-container container mb-4">
+			<div className="container">
+				<div className="quizcreator-container">
 					<h1>Create a Quiz</h1>
 						<form onSubmit={this.handleSubmit}>
 									<div className="quizcreator-form">

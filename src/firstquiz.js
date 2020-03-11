@@ -83,28 +83,29 @@ rattasvar = (e) => {
 render () {
 
 
-        return (<div> 
+        return (<div className="container"> 
                 
                     <div>
-                        <h2>WELCOME TO THE QUIZ</h2>
+                        <h2>LET THE QUIZZING BEGIN</h2>
 
                         {this.state.Questions.length && !this.state.finnished? 
                         <div>
                              <h3>QUIZ NAME: {this.state.Quiztitle}</h3>
-                            <div className="question" >{this.state.Questions}</div>
+                             <div className="quiz-questions-output">
+                                <div className="question" >{this.state.Questions}</div>
 
-                             <form onSubmit={this.rattasvar} className="answerform">
-                                {this.state.Answers}
-                                {this.state.Correctans}
-                                <button type="submit">SEND ANSWER</button>
-
-                             </form>   
+                                <form onSubmit={this.rattasvar} className="answerform">
+                                    {this.state.Answers}
+                                    {this.state.Correctans}
+                                    <button className="btn btn-secondary" type="submit">SEND ANSWER</button>
+                                </form>   
+                             </div>
                         </div>:null}
                     </div>
                
                {!this.state.Questions.length?
-                    <div className="next">
-                        <button className="startbtn" type="click" onClick={this.updatastate} >START QUIZ</button>
+                    <div className="next text-center mt-4">
+                        <button className="startbtn btn btn-secondary" type="click" onClick={this.updatastate} >START QUIZ</button>
                     </div>:null}
 
                  {this.state.finnished?<p className="result">YOU GOT {this.state.points} POINTS</p>:null}
