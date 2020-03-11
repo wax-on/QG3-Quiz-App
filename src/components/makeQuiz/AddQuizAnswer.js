@@ -68,7 +68,7 @@ class AddQuizAnswer extends React.Component {
 							<option disabled="disabled" value="">Choose correct answer</option>
 							{
 								this.props.answers.map((answer, i) => (
-									<option value={answer}>{answer}</option>
+									<option value={answer} key={i}>{answer}</option>
 								))
 							}
 				</select>

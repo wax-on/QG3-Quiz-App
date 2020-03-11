@@ -9,27 +9,27 @@ import AddQuizQuestion from "./components/makeQuiz/AddQuizQuestion";
 import Firstquiz from "./components/makeQuiz/firstquiz";
 
 class App extends React.Component {
-  render() {
-    return (
-      <BrowserRouter>
-        <div>
-          <Navbar />
-          <Switch>
-            <Route exact path="/" component={MainPage} />
-            <Route path="/create-quiz" component={QuizCreator} />
+	render() {
+		return (
+			<BrowserRouter>
+				<div>
+					<Navbar />
+					<Switch>
+						<Route exact path="/" component={MainPage} />
+						<Route path="/create-quiz" component={QuizCreator} />
 
-            <Route
-              path="/create-quiz-question/:quiz_id"
-              component={AddQuizQuestion}
-            />
-            <Route path="/Quizrender/:quiz_id" component={Firstquiz} />
-          </Switch>
+						<Route
+							path="/create-quiz-question/:quiz_id"
+							component={AddQuizQuestion}
+						/>
+						<Route path="/Quizrender/:quiz_id" component={Firstquiz} />
+					</Switch>
 
-          <Footer />
-        </div>
-      </BrowserRouter>
-    );
-  }
+					<Footer />
+				</div>
+			</BrowserRouter>
+		);
+	}
 }
 
 export default App;

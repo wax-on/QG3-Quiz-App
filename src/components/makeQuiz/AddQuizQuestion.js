@@ -1,10 +1,9 @@
 import React from 'react'
 import AddQuizAnswer from "./AddQuizAnswer"
-import { db } from '../firebase'
+import { db } from '../fireStore/firebase'
 import { Link } from 'react-router-dom'
 
 class AddQuizQuestion extends React.Component {
-
 	state = {
 		title: '',
 		question: '',
@@ -86,14 +85,14 @@ class AddQuizQuestion extends React.Component {
 	render() {
 		const quizOutput = this.state.questions.map((question, i) => {
 			return (
-				<div>
+				<div key={i}>
 					<h2> {i + 1}. {question.question}  
 					<span className="delete-question" onClick={(e) => {this.deleteQuestion(e, i)}}> 🗑</span></h2>
 					<ol>
 						{
-							question.answers.map(answer => {
+							question.answers.map((answer, i) => {
 								return (
-									<li> 
+									<li key={i}> 
 										{answer} 
 									</li>
 									)
