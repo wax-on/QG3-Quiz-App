@@ -4,9 +4,7 @@ class Answer extends React.Component {
 
 state = {
 
-}
-
-
+   }
 
 render () {
     

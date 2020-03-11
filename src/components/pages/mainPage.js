@@ -1,6 +1,5 @@
 import React from "react";
-import { db } from "../firebase";
-import Firstquiz from "../firstquiz"
+import { db } from "../fireStore/firebase";
 
 
 class mainPage extends React.Component {
@@ -30,7 +29,6 @@ class mainPage extends React.Component {
     let obj = {};
     obj.realid = id;
     obj.realtitle = title;
-    console.log("quizes", tommaquiz);
     tommaquiz = [...this.state.Quizes, obj];
     this.setState({ Quizes: tommaquiz });
   };
@@ -41,7 +39,6 @@ class mainPage extends React.Component {
 
   render() {
     const NewQuizes = this.state.Quizes.map(obj => {
-      console.log(obj);
       const i = obj.realid;
       return (
         <div class="col-md-6 col-lg-4">

@@ -1,20 +1,20 @@
 import React from "react"; 
 import Answer from './Answer.js'
 
-import { db } from './firebase'
+import { db } from "../fireStore/firebase";
 
 
 class Firstquiz extends React.Component {
 
 state =  {
 
-    loaded: false,
-    start:true,
+    
+    
     ids:[],
     Quiztitle:"",
     Questions: [],
     Answers: [],
-    Correctans:"",
+    correctAnswer: [],
     data:[],
     finnished: false,
     answerpoint:"",
@@ -24,21 +24,24 @@ state =  {
 }
 
 componentDidMount = () => {
-
-
-   this.setState({loaded: false})
-
    const dat = [...this.state.data]
 
-   db.collection("QG3-Quiz").doc(this.props.match.params.quiz_id).get().then(function(doc) {
-       
-    if (doc.exists) {dat.push(doc.data())}}).catch(err=>console.log(err))
+   db.collection("QG3-Quiz").doc(this.props.match.params.quiz_id).get()
+   .then(function(doc) {  
+     if (doc.exists) {
+       dat.push(doc.data())}
+      })
+    .catch(err=>console.log(err))
 
-    this.setState({data: dat, loaded:true, start:false})
-    this.updatastate()}
+    this.setState({
+      data: dat
+    })
+    this.updatastate()
+  }
 
 
 updatastate = () => {
+
 
 
     let dat = [...this.state.data]
@@ -47,7 +50,7 @@ updatastate = () => {
 
     const end = dat.filter(dat=>dat.questions.length==i)
 
-    if (end.length) {this.setState({loaded:false, finnished:true});return}
+    if (end.length) {this.setState({finnished:true});return}
 
     const ques = dat.map(dat=>dat.questions[i].question)
 
@@ -55,11 +58,21 @@ updatastate = () => {
 
     const ans = dat.map(dat=>dat.questions[i].answers)
 
-    this.setState({Answers: ans.map(answer=>answer.map(ans=><Answer lagra={this.lagrasvar} text={ans} value={false}/>))})
+    let correct = dat.map(dat=>dat.questions[i].correctAnswer)
 
-    const correct = dat.map(dat=>dat.questions[i].correctAnswer)
+    const answers= ans.map(an=>
+      
+    an.map(item=>item!=correct? <Answer lagra={this.lagrasvar} text={item} value={false}/>
+    
+    :null))
+    
 
-    this.setState({Correctans: <Answer lagra={this.lagrasvar} text={correct} value={true}/>})
+    let realcorrect=[]
+
+    realcorrect =correct.map(ans=><Answer lagra={this.lagrasvar} text={ans} value={true}/>
+    )
+    this.setState({Answers: answers, correctAnswer: realcorrect})
+
 
     const tit = dat.map(dat=>dat.title)
 
@@ -77,6 +90,7 @@ rattasvar = (e) => {
     e.preventDefault()
 
    if(this.state.answerpoint=="true"){this.setState({points: this.state.points + 1})}
+
    this.updatastate()
 }
 
@@ -96,7 +110,7 @@ render () {
 
                                 <form onSubmit={this.rattasvar} className="answerform">
                                     {this.state.Answers}
-                                    {this.state.Correctans}
+                                    {this.state.correctAnswer}
                                     <button className="btn btn-secondary" type="submit">SEND ANSWER</button>
                                 </form>   
                              </div>
