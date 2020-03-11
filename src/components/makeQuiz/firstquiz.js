@@ -8,8 +8,8 @@ class Firstquiz extends React.Component {
 
 state =  {
 
-    loaded: false,
-    start:true,
+    
+    
     ids:[],
     Quiztitle:"",
     Questions: [],
@@ -24,18 +24,20 @@ state =  {
 }
 
 componentDidMount = () => {
-
-
-   this.setState({loaded: false})
-
    const dat = [...this.state.data]
 
-   db.collection("QG3-Quiz").doc(this.props.match.params.quiz_id).get().then(function(doc) {
-       
-    if (doc.exists) {dat.push(doc.data())}}).catch(err=>console.log(err))
+   db.collection("QG3-Quiz").doc(this.props.match.params.quiz_id).get()
+   .then(function(doc) {  
+     if (doc.exists) {
+       dat.push(doc.data())}
+      })
+    .catch(err=>console.log(err))
 
-    this.setState({data: dat, loaded:true, start:false})
-    this.updatastate()}
+    this.setState({
+      data: dat
+    })
+    this.updatastate()
+  }
 
 
 updatastate = () => {
@@ -48,7 +50,7 @@ updatastate = () => {
 
     const end = dat.filter(dat=>dat.questions.length==i)
 
-    if (end.length) {this.setState({loaded:false, finnished:true});return}
+    if (end.length) {this.setState({finnished:true});return}
 
     const ques = dat.map(dat=>dat.questions[i].question)
 
@@ -58,7 +60,11 @@ updatastate = () => {
 
     let correct = dat.map(dat=>dat.questions[i].correctAnswer)
 
-    const answers= ans.map(an=>an.map(item=>item!=correct?<Answer lagra={this.lagrasvar} text={item} value={false}/>:null))
+    const answers= ans.map(an=>
+      
+    an.map(item=>item!=correct? <Answer lagra={this.lagrasvar} text={item} value={false}/>
+    
+    :null))
     
 
     let realcorrect=[]
